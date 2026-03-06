@@ -1,27 +1,17 @@
 # Bastion Host Access
 
-## Goal
-Provide controlled SSH access to private EC2 instances.
+Private EC2 instances reside in private subnets and cannot be accessed directly from the internet.
 
-## Architecture
+SSH access is performed through a bastion host located in a public subnet.
 
-Laptop → Bastion Host → Private Instance
+## Connection Flow
 
-## Configuration
+Local machine → Bastion Host → Private EC2 instance
 
-Security group rules:
+Example:
 
-Inbound:
-SSH (22) from my public IP
+ssh -i bastion-key.pem ec2-user@bastion-public-ip
 
-Outbound:
-All traffic allowed
+Then from bastion:
 
-Private server security group:
-
-Inbound:
-SSH from bastion security group
-
-## SSH Access
-
-Connect to bastion:
+ssh ec2-user@10.10.10.x
