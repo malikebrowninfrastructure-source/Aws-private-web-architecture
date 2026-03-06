@@ -42,3 +42,20 @@ Instance configuration:
 ### 1. Verify metadata endpoint
 
 Checked connectivity to metadata service:
+
+
+## Lab 2 - Auto Scaling Launch Template Metadata Issue
+
+### Problem
+The Application Load Balancer page displayed:
+
+Web Server Instance:
+
+without the EC2 instance ID.
+
+### Cause
+The Auto Scaling instances were launched from a launch template that required IMDSv2.
+The original user-data script attempted to retrieve metadata using an IMDSv1-style request:
+
+```bash
+curl http://169.254.169.254/latest/meta-data/instance-id
